@@ -22,32 +22,46 @@ class ScoreInputScreen extends StatelessWidget {
           var cubit = context.read<ScoreInputCubit>();
           return Scaffold(
             appBar: appBar(),
-            body: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 66.h),
-                  child: Text(
-                    'Enter your score',
-                    style: TextStyles.size20GreenBold,
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 66.h),
+                    child: Text(
+                      'Enter your score',
+                      style: TextStyles.size20GreenBold,
+                    ),
                   ),
-                ),
-                TextFormInput(
-                  textEditingController: scoreController,
-                  onChanged: (value) {
-                    cubit.updateScore(value);
-                  },
-                ),
-                CustomButton(
-                  isEmpty: cubit.score.isEmpty,
-                  onPressed: () {
-                    context.push(
-                      HomeScreen(
-                        score: cubit.score,
-                      ),
-                    );
-                  },
-                )
-              ],
+                  TextFormInput(
+                    textEditingController: scoreController,
+                    onChanged: (value) {
+                      cubit.updateScore(value);
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return null;
+                      }
+                      if (double.tryParse(value)! < 1000.0 ||
+                          double.tryParse(value)! > 8000.0) {
+                        return 'Please enter score between 1000 and 8000';
+                      }
+                      return null;
+                    },
+                  ),
+                  CustomButton(
+                    validate: cubit.score.isNotEmpty &&
+                        double.tryParse(cubit.score)! >= 1000.0 &&
+                        double.tryParse(cubit.score)! <= 8000.0,
+                    onPressed: () {
+                      context.push(
+                        HomeScreen(
+                          score: double.parse(cubit.score),
+                        ),
+                      );
+                    },
+                  )
+                ],
+              ),
             ),
           );
         },

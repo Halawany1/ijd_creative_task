@@ -6,12 +6,12 @@ import 'package:ijd_creative_task/core/theme/app_colors.dart';
 import 'package:ijd_creative_task/core/theme/text_style.dart';
 
 class CustomButton extends StatelessWidget {
-  final bool isEmpty;
+  final bool validate;
   final VoidCallback onPressed;
 
   const CustomButton({
     super.key,
-    required this.isEmpty,
+    required this.validate,
     required this.onPressed,
   });
 
@@ -21,7 +21,7 @@ class CustomButton extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 15.w),
       child: MaterialButton(
         color: AppColors.yellow,
-        onPressed: !isEmpty ? onPressed : null,
+        onPressed: validate ? onPressed : null,
         elevation: 0,
         disabledColor: Colors.grey,
         minWidth: double.infinity,

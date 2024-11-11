@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:ijd_creative_task/core/theme/app_colors.dart';
+
 class CustomThumbShape extends SliderComponentShape {
   final double thumbRadius;
 
