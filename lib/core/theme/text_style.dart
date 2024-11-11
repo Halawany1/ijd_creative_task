@@ -16,6 +16,12 @@ class TextStyles {
     color: Colors.black,
     fontFamily: 'BalooBhaijaan2',
   );
+  static final size14WhiteW600 = TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w600,
+    color: Colors.white,
+    fontFamily: 'BalooBhaijaan2',
+  );
   static final size9Black = TextStyle(
     fontSize: 9.sp,
     color: Colors.black,

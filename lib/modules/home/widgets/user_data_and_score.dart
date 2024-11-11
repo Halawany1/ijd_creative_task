@@ -5,12 +5,10 @@ import 'package:ijd_creative_task/core/theme/text_style.dart';
 
 class UserDataAndScore extends StatelessWidget {
   final double score;
-  final double sliderScore;
 
   const UserDataAndScore({
     super.key,
     required this.score,
-    required this.sliderScore,
   });
 
   @override
@@ -37,25 +35,31 @@ class UserDataAndScore extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 1.h),
+        SizedBox(height: 5.h),
         Text(
           'Total Score',
           style: TextStyles.size9Black,
         ),
-        // Using TweenAnimationBuilder to animate the score
-        TweenAnimationBuilder<double>(
-          tween: Tween(
-            begin: 0.0,
-            end: score,
+        SizedBox(
+          width: 120.w,
+          height: 40.h,
+          child: FittedBox(
+            fit: BoxFit.contain,
+            child: TweenAnimationBuilder<double>(
+              tween: Tween(
+                begin: 0.0,
+                end: score,
+              ),
+              duration: const Duration(seconds: 20),
+              curve: Curves.fastOutSlowIn,
+              builder: (context, value, child) {
+                return Text(
+                  value.toStringAsFixed(2),
+                  style: TextStyles.size39GreenBold,
+                );
+              },
+            ),
           ),
-          duration: Duration(seconds: sliderScore != 0.0 ? 0 : 20),
-          curve: Curves.fastOutSlowIn,
-          builder: (context, value, child) {
-            return Text(
-              value.toStringAsFixed(1),
-              style: TextStyles.size39GreenBold,
-            );
-          },
         ),
       ],
     );

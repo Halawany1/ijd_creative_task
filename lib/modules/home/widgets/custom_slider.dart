@@ -29,13 +29,9 @@ class CustomSlider extends StatelessWidget {
               (index) => Text(
                 "${index + 1}",
                 style: TextStyles.size20YellowBold.copyWith(
-                  color: cubit.sliderValue != 0.0
-                      ? (index + 1).toDouble() <= (cubit.sliderValue / 1000)
-                          ? AppColors.yellow
-                          : AppColors.green51
-                      : (index + 1).toDouble() <= (score / 1000)
-                          ? AppColors.yellow
-                          : AppColors.green51,
+                  color: (index + 1).toDouble() <= (score / 1000)
+                      ? AppColors.yellow
+                      : AppColors.green51,
                 ),
               ),
             ),
@@ -44,13 +40,13 @@ class CustomSlider extends StatelessWidget {
         TweenAnimationBuilder<double>(
           tween: Tween(
             begin: 0.0,
-            end: cubit.sliderValue != 0.0 ? cubit.sliderValue : score,
+            end: score,
           ),
-          duration: Duration(seconds: cubit.sliderValue == 0.0 ? 20 : 0),
+          duration: const Duration(seconds: 20),
           curve: Curves.fastOutSlowIn,
           builder: (context, value, child) {
             double normalizedValue = value / 1000;
-            normalizedValue = normalizedValue < 1 ? 1 : normalizedValue;
+            normalizedValue = normalizedValue > 8.0 ? 8.0 : normalizedValue;
             return SliderTheme(
               data: SliderTheme.of(context).copyWith(
                 trackHeight: 12.h,
@@ -64,11 +60,9 @@ class CustomSlider extends StatelessWidget {
               ),
               child: Slider(
                 value: normalizedValue,
-                min: 1,
+                min: 0,
                 max: 8,
-                onChanged: (value) {
-                  cubit.updateSliderValue(value);
-                },
+                onChanged: (value) {},
               ),
             );
           },

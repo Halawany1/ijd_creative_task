@@ -6,7 +6,7 @@ import 'package:ijd_creative_task/core/theme/text_style.dart';
 import 'package:ijd_creative_task/core/widgets/app_bar.dart';
 import 'package:ijd_creative_task/modules/home/screens/home_screen.dart';
 import 'package:ijd_creative_task/modules/score_input/logic/score_input_cubit.dart';
-import 'package:ijd_creative_task/modules/score_input/widgets/custom_button.dart';
+import 'package:ijd_creative_task/core/widgets/custom_button.dart';
 import 'package:ijd_creative_task/modules/score_input/widgets/text_form_input.dart';
 
 class ScoreInputScreen extends StatelessWidget {
@@ -41,17 +41,20 @@ class ScoreInputScreen extends StatelessWidget {
                       if (value!.isEmpty) {
                         return null;
                       }
-                      if (double.tryParse(value)! < 1000.0 ||
-                          double.tryParse(value)! > 8000.0) {
-                        return 'Please enter score between 1000 and 8000';
+                      if (value[0] == '-') {
+                        return 'Score must be positive';
+                      }
+                      if (value == '0') {
+                        return 'Score must be greater than 0';
                       }
                       return null;
                     },
                   ),
                   CustomButton(
+                    text: 'Start',
                     validate: cubit.score.isNotEmpty &&
-                        double.tryParse(cubit.score)! >= 1000.0 &&
-                        double.tryParse(cubit.score)! <= 8000.0,
+                        cubit.score != '0' &&
+                        !cubit.score.startsWith('-'),
                     onPressed: () {
                       context.push(
                         HomeScreen(

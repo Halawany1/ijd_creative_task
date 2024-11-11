@@ -8,11 +8,13 @@ import 'package:ijd_creative_task/core/theme/text_style.dart';
 class CustomButton extends StatelessWidget {
   final bool validate;
   final VoidCallback onPressed;
+  final String text;
 
   const CustomButton({
     super.key,
-    required this.validate,
+    this.validate = true,
     required this.onPressed,
+    required this.text,
   });
 
   @override
@@ -40,7 +42,7 @@ class CustomButton extends StatelessWidget {
             ),
             SizedBox(width: 10.w),
             Text(
-              'Start',
+              text,
               style: TextStyles.size16BlackW500,
             )
           ],
